@@ -1,27 +1,43 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+// import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { use } from "react";
 import { Link } from "react-router";
-import { auth } from "../../firebase/firebase.init";
-import { AuthContext } from "../../main";
+import { AuthContext } from "../../contexts/AuthContext/AuthContext";
+// import { auth } from "../../firebase/firebase.init";
+
 
 const Register = () => {
-    const userInfo = use(AuthContext);
-    console.log('in registration', userInfo)
-
-    const handleRegister = (event) => {
+    const {createUser} = use(AuthContext);
+    
+    const handleRegister = (event) =>{
         event.preventDefult();
         const email = event.target.email.value;
         const password = event.target.password.value;
-        console.log(email, password);
 
-        createUserWithEmailAndPassword(auth,email,password)
+        createUser(email,password)
         .then(result => {
-            console.log(result)
+            console.log(result.user);
         })
         .catch(error =>{
-            console.log(error)
+            console.log(error);
         })
+
+        
     }
+
+    // const handleRegister = (event) => {
+    //     event.preventDefult();
+    //     const email = event.target.email.value;
+    //     const password = event.target.password.value;
+    //     console.log(email, password);
+
+    //     createUserWithEmailAndPassword(auth,email,password)
+    //     .then(result => {
+    //         console.log(result)
+    //     })
+    //     .catch(error =>{
+    //         console.log(error)
+    //     })
+    // }
 
 
 
